@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <h2 class="text-4xl font-bold mb-6 text-gray-900">{{ __('Login') }}</h2>
+    <h2 class="text-5xl font-bold mb-6 text-gray-900">{{ __('Login') }}</h2>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
@@ -52,10 +52,6 @@
                     {{ __('Cadastre-se!') }}
                 </a>
             @endif
-
-            <!-- <x-primary-button class="ms-3">
-                {{ __('Entrar') }}
-            </x-primary-button> -->
         </div>
     </form>
 </x-guest-layout>
