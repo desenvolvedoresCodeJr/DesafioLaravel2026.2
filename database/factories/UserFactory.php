@@ -29,6 +29,18 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'cep' => fake()->numerify('#####-###'),
+            'numero' => fake()->buildingNumber(),
+            'logradouro' => fake()->streetName(),
+            'bairro' => fake()->words(2, true),
+            'cidade' => fake()->city(),
+            'estado' => fake()->stateAbbr(),
+            'complemento' => fake()->optional()->secondaryAddress(),
+            'telefone' => fake()->numerify('(##) #####-####'),
+            'data_nascimento' => fake()->date('Y-m-d', '-18 years'),
+            'cpf' => fake()->numerify('###.###.###-##'),
+            'saldo' => fake()->randomFloat(2, 0, 5000),
+            'is_admin' => false,
         ];
     }
 
@@ -39,6 +51,13 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_admin' => true,
         ]);
     }
 }
