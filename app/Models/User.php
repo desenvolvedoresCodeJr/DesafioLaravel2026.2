@@ -34,6 +34,7 @@ class User extends Authenticatable
         'saldo',
         'foto',
         'is_admin',
+        'criado_por',
     ];
 
     /**
@@ -62,6 +63,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function getFotoUrlAttribute(): ?string
+    {
+        return url_foto($this->foto);
+    }
+
     public function produtos()
     {
         return $this->hasMany(Produto::class);
@@ -75,5 +81,20 @@ class User extends Authenticatable
     public function vendas()
     {
         return $this->hasMany(CompraItem::class, 'vendedor_id');
+    }
+
+    public function criador()
+    {
+        return $this->belongsTo(User::class, 'criado_por');
+    }
+
+    public function podeSerGerenciadoPor(User $admin): bool
+    {
+        return $this->is_admin && ($this->id === $admin->id || $this->criado_por === $admin->id);
+    }
+
+    public function carrinho()
+    {
+        return $this->hasMany(CarrinhoItem::class);
     }
 }

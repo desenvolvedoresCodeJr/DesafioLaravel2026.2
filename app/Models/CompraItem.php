@@ -27,4 +27,9 @@ class CompraItem extends Model
     {
         return $this->belongsTo(User::class, 'vendedor_id');
     }
+
+    public function getValorAttribute(): float
+    {
+        return (float) $this->produto->preco * $this->quantidade;
+    }
 }

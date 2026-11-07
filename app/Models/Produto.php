@@ -13,6 +13,11 @@ class Produto extends Model
         'foto', 'nome', 'descricao', 'preco', 'quantidade', 'categoria_id', 'user_id',
     ];
 
+    public function getFotoUrlAttribute(): ?string
+    {
+        return url_foto($this->foto);
+    }
+
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
